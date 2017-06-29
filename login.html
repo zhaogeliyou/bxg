@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+<div class="login-container">
+    <h3 class="text-center">博学谷后台管理系统</h3>
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">用户名</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" placeholder="" value="前端学院" name="tc_name">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">密码</label>
+            <div class="col-sm-10">
+                <input type="password" class="form-control" placeholder="" value="123456" name="tc_pass">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-success btn-block btn-lg">登录</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+<script src="js/lib/jquery-2.1.4.js"></script>
+<script src="js/lib/jquery.cookie.js"></script>
+</html>
+<script>
+    $("form").submit(function(){
+        //获取输入的表单信息
+        var formData = $("form").serialize();
+
+        // //提交到服务器
+        $.ajax({
+            type:"post",
+            url: "/api/login",
+           data:formData,
+            success: function(res) {
+                console.log(res)
+                $.cookie("userInfo",JSON.stringify(res.result),{expires:7});
+
+                location.href="/";
+            }
+        })
+         return false;
+    })
+
+    
+</script>
